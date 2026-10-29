@@ -4,15 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Brio Studio · versão com os cases na mesma página</title>
-<meta name="description" content="Brio é a força que impulsiona marcas a se destacarem. Fotografia, vídeo, design e social media no Rio de Janeiro.">
+<meta name="description" content="Brio é a força que impulsiona marcas a se destacarem. Foto, vídeo, design, estratégia e sites no Rio de Janeiro.">
 <meta name="theme-color" content="#140904">
 <meta property="og:title" content="Brio Studio · versão com os cases na mesma página">
-<meta property="og:description" content="Brio é a força que impulsiona marcas a se destacarem. Fotografia, vídeo, design e social media no Rio de Janeiro.">
-<meta property="og:image" content="assets/img/globar-picanha-logo.webp">
+<meta property="og:description" content="Brio é a força que impulsiona marcas a se destacarem. Foto, vídeo, design, estratégia e sites no Rio de Janeiro.">
+<meta property="og:image" content="https://brio-studio-scroll.vercel.app/assets/brand/og-brio.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="assets/brand/brio-logo-claro.webp">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@400;500;700&family=Bagel+Fat+One&family=Shantell+Sans:wght@500;700&display=swap" rel="stylesheet">
+<link rel="preload" href="assets/fonts/bricolage-grotesque-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/style.css">
 <script>
   // conteúdo animado começa escondido só com JS; se nada rodar em 4s, mostra tudo parado
@@ -36,101 +37,102 @@
 <div class="hud" aria-hidden="true"><span class="hud-rec"><b></b>REC</span><span data-hud-tc>00:00:00:00</span><span class="hud-sep">·</span><span data-hud-label>abertura</span></div>
 <div class="cursor" data-cursor aria-hidden="true"><span data-cursor-text></span></div>
 <img class="case-preview" data-preview alt="" aria-hidden="true">
+<a class="fab" href="https://ig.me/m/creativebrio" target="_blank" rel="noopener" data-fab>bora conversar <span aria-hidden="true">→</span></a>
 
 <main id="top">
 
-<section class="scene" id="opening" data-label="abertura" style="--len:230">
+<section class="scene" id="opening" data-label="abertura" style="--len:170">
   <div class="stage">
-    <div class="op-hero" data-hero>
-      <picture>
-        <source media="(min-width: 761px)" srcset="assets/img/globar-picanha-garfo.webp">
-        <img src="assets/img/globar-picanha.webp" alt="Picanha na chapa com linguiça, foto da Brio para o Globar" fetchpriority="high">
-      </picture>
-    </div>
-    <div class="op-cards">
-      <figure class="op-card" data-card data-depth="1.2" style="--x:9%;--y:16%;--w:15vw;--r:-8deg"><img src="assets/img/globar-isca.webp" alt=""></figure>
-      <figure class="op-card" data-card data-depth=".7" style="--x:75%;--y:9%;--w:13vw;--r:7deg"><img src="assets/img/mostarda-parma.webp" alt=""></figure>
-      <figure class="op-card" data-card data-depth="1" style="--x:4%;--y:60%;--w:14vw;--r:6deg"><img src="assets/img/globar-pasteis.webp" alt=""></figure>
-      <figure class="op-card" data-card data-depth="1.4" style="--x:80%;--y:56%;--w:15vw;--r:-6deg"><img src="assets/img/globar-fritas.webp" alt=""></figure>
-      <figure class="op-card op-card-cut" data-card data-depth=".5" style="--x:22%;--y:74%;--w:10vw;--r:-6deg"><img src="assets/img/duda-sacola.webp" alt=""></figure>
-      <figure class="op-card" data-card data-depth=".9" style="--x:66%;--y:80%;--w:11vw;--r:5deg"><img src="assets/img/mostarda-cliente.webp" alt=""></figure>
-    </div>
-    <div class="op-head" data-in>captação · edição · estratégia · rio de janeiro</div>
-    <h1 class="op-logo" data-op-logo><img src="assets/brand/brio-logo-claro.webp" alt="Brio Studio" width="944" height="524"></h1>
-    <p class="op-slogan" data-in data-op-slogan>a força que impulsiona marcas a <em>se destacarem</em></p>
+    <div class="op-glow" aria-hidden="true"></div>
+    <svg class="op-star" data-op-star viewBox="-100 -100 200 200" aria-hidden="true"><polygon data-star/></svg>
+    <svg class="op-star2" data-op-star2 viewBox="-100 -100 200 200" aria-hidden="true"><polygon data-star/></svg>
+    <div class="op-head" data-in>foto · vídeo · design · estratégia · sites · rio de janeiro</div>
+    <h1 class="op-logo" data-op-logo><img src="assets/brand/brio-logo-claro.webp" alt="Brio Studio" width="944" height="524" fetchpriority="high"></h1>
+    <p class="op-slogan" data-in>a força que impulsiona marcas a <em>se destacarem</em></p>
     <div class="op-hint" data-in>role <i></i></div>
-    <p class="op-caption" data-op-caption>esse post foi feito pela brio. <br>esse site também.</p>
   </div>
 </section>
 
-<section class="scene" id="manifesto" data-label="manifesto" style="--len:250">
+<section class="scene" id="manifesto" data-label="manifesto" style="--len:200">
   <div class="stage">
     <svg class="mf-star" data-mf-star viewBox="-100 -100 200 200" aria-hidden="true"><polygon data-star/></svg>
     <div class="mf-text">
-      <p class="mf-a display" data-mf-a>pode ter a melhor câmera do mundo:</p>
-      <p class="mf-b display" data-mf-b>mas sem <em>olhar</em> e <em>edição</em>, é só um <span class="mf-heavy">arquivo pesado.</span></p>
-    </div>
-    <div class="mf-file" data-mf-file aria-hidden="true"><span>IMG_0482.CR3</span><b data-mf-size>0 MB</b></div>
-  </div>
-</section>
-
-<section class="scene" id="edicao" data-label="edição ao vivo" style="--len:360">
-  <div class="stage">
-    <div class="ed-wrap">
-      <div class="ed-copy">
-        <p class="kicker" data-in>edição ao vivo</p>
-        <h2 class="display ed-title" data-ed-title>role pra <em>editar</em>.</h2>
-        <div class="ed-panel" data-ed-panel>
-          <div class="ed-panel-head"><span>ajustes</span><span class="ed-mode" data-roll="mode"><i class="roll-item">raw</i><i class="roll-item">editado</i></span></div>
-          <div class="sl" data-sl="exp" data-from="-1.20" data-to="0.35" data-fix="2"><span>exposição</span><b>-1.20</b><i class="tr"><i class="fill"></i><i class="knob"></i></i></div>
-          <div class="sl" data-sl="con" data-from="-40" data-to="25" data-fix="0"><span>contraste</span><b>-40</b><i class="tr"><i class="fill"></i><i class="knob"></i></i></div>
-          <div class="sl" data-sl="sat" data-from="-65" data-to="18" data-fix="0"><span>saturação</span><b>-65</b><i class="tr"><i class="fill"></i><i class="knob"></i></i></div>
-          <div class="sl" data-sl="tmp" data-from="4300" data-to="5600" data-fix="0" data-unit="K"><span>temperatura</span><b>4300K</b><i class="tr"><i class="fill"></i><i class="knob"></i></i></div>
-          <div class="sl" data-sl="rot" data-from="-5.0" data-to="0.0" data-fix="1" data-unit="°"><span>endireitar</span><b>-5.0°</b><i class="tr"><i class="fill"></i><i class="knob"></i></i></div>
-          <div class="histo" data-histo aria-hidden="true"></div>
-        </div>
-      </div>
-      <div class="ed-photo" data-ed-photo>
-        <div class="ed-frame"><img src="assets/img/globar-fritas.webp" alt="Fritas com cheddar e bacon sobre a bandeira do Brasil, foto do Globar" data-ed-img><div class="ed-grid" data-ed-grid><i></i><i></i><i></i><i></i></div></div>
-        <span class="ed-stamp" data-ed-stamp>editado ✓</span>
-        <p class="ed-q" data-ed-q>desliza e me diz: <em>é o mesmo prato?</em> 👀</p>
-      </div>
+      <p class="mf-a display" data-mf-a>tem marca que só posta.</p>
+      <p class="mf-b display" data-mf-b>a gente faz ela ser <em>lembrada.</em></p>
     </div>
   </div>
 </section>
 
-<section class="scene" id="servicos" data-label="serviços" style="--len:440">
+<section class="scene" id="servicos" data-label="o que eu faço" style="--len:480">
   <div class="stage">
     <h2 class="sv-title display" data-sv-title>o que eu <em>faço?</em></h2>
+    <span class="sv-count" aria-hidden="true"><b data-sv-i>01</b> / 04</span>
     <div class="track" data-track>
       <article class="panel p-cap" data-panel="cap">
-        <div class="p-txt"><span class="p-num">01 / 03</span><h3 class="display">captação</h3><p>foto e vídeo com direção, luz e ângulo pensados pra sua marca. não pra galeria do celular.</p></div>
+        <div class="p-txt"><span class="p-num">01 / 04</span><h3 class="display">foto e vídeo</h3><p>da captação à edição. produto, ensaio, cobertura de evento e aftermovie.</p></div>
         <div class="p-viz">
           <div class="phone" data-cursor-label="play">
-            <video data-video muted playsinline loop preload="none" poster="assets/video/reel-rodizio.jpg"><source src="assets/video/reel-rodizio.mp4" type="video/mp4"></video>
-            <div class="vf-hud"><span class="rec"><b></b>REC</span><span>4K · 30fps</span></div>
+            <video data-video muted playsinline loop preload="none" poster="assets/video/aftermovie.jpg"><source src="assets/video/aftermovie.mp4" type="video/mp4"></video>
+            <div class="vf-hud"><span class="rec"><b></b>REC</span><span>aftermovie</span></div>
             <i class="vf-br tl" data-vfbr></i><i class="vf-br tr" data-vfbr></i><i class="vf-br bl" data-vfbr></i><i class="vf-br br" data-vfbr></i>
           </div>
         </div>
       </article>
-      <article class="panel p-ed" data-panel="ed">
-        <div class="p-txt"><span class="p-num">02 / 03</span><h3 class="display">edição</h3><p>cor, corte e ritmo. é aqui que o arquivo pesado vira conteúdo que segura o dedo no feed.</p></div>
-        <div class="p-viz">
-          <div class="ba" data-ba>
-            <img class="ba-raw" src="assets/img/globar-pastel-queijo.webp" alt="">
-            <img class="ba-ed" data-ba-ed src="assets/img/globar-pastel-queijo.webp" alt="Pastel de queijo esticando, foto editada">
-            <span class="ba-tag l">antes</span><span class="ba-tag r">depois</span>
-            <i class="ba-handle" data-ba-handle></i>
-          </div>
+      <article class="panel p-ds" data-panel="ds">
+        <div class="p-txt"><span class="p-num">02 / 04</span><h3 class="display">design</h3><p>identidade visual, posts, backdrop e embalagem. a sua marca com cara de marca.</p></div>
+        <div class="ds-row">
+          <figure class="ds-car" data-ds-car><img loading="lazy" src="assets/img/carrossel-dentista.webp" alt="Carrossel da Dra. Ana Paula Brasil feito pela Brio, todos os cards"><figcaption>carrossel · dentista</figcaption></figure>
+          <figure class="ds-car" data-ds-car><img loading="lazy" src="assets/img/carrossel-unhas.webp" alt="Carrossel de curso de nail art feito pela Brio, todos os cards"><figcaption>carrossel · curso de unhas</figcaption></figure>
         </div>
       </article>
       <article class="panel p-est" data-panel="est">
-        <div class="p-txt"><span class="p-num">03 / 03</span><h3 class="display">estratégia</h3><p>feed com intenção: identidade, calendário e conteúdo que conversa com quem compra de você.</p></div>
+        <div class="p-txt"><span class="p-num">03 / 04</span><h3 class="display">roteiro e estratégia</h3><p>a ideia, o calendário e o plano pra postar com sentido, não só postar.</p></div>
         <div class="p-viz">
-          <div class="phone phone-feed"><div class="feed" data-feed><img src="assets/img/globar-instagram.webp" alt="Perfil do Instagram do Globar Restaurante"></div></div>
-          <div class="stat" data-stat><small>@globarrestaurante_</small><strong data-count="2442">0</strong><span>seguidores</span></div>
+          <figure class="plan" data-plan><img loading="lazy" src="assets/img/cronograma.webp" alt="Cronograma de conteúdo feito pela Brio para uma cliente"></figure>
+          <div class="script" data-script aria-hidden="true">
+            <b>roteiro de reels</b>
+            <span class="sc-tag">gancho · 0–5s</span><i></i><i class="s"></i>
+            <span class="sc-tag">fala</span><i></i><i></i><i class="s"></i>
+            <span class="sc-tag">cta</span><i class="s"></i>
+          </div>
         </div>
       </article>
+      <article class="panel p-site" data-panel="site">
+        <div class="p-txt"><span class="p-num">04 / 04</span><h3 class="display">sites</h3><p>um cantinho da sua marca na internet. este aqui foi feito pela brio.</p></div>
+        <div class="p-viz">
+          <div class="browser" data-browser>
+            <div class="br-bar"><i></i><i></i><i></i><span>brio-studio-scroll.vercel.app</span></div>
+            <img loading="lazy" src="assets/img/site-brio.webp" alt="A página inicial deste site">
+          </div>
+          <span class="here" data-here>você está aqui ↑</span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="scene" id="resultado" data-label="resultado" style="--len:220">
+  <div class="stage">
+    <div class="rs-wrap">
+      <div class="rs-copy">
+        <p class="kicker" data-rs-in>resultados · @globarrestaurante_</p>
+        <div class="rs-stats">
+          <div class="rs-stat">
+            <p class="rs-big display"><span data-rs-count="157">0</span>K</p>
+            <p class="rs-cap" data-rs-in>visualizações num post</p>
+            <p class="rs-small" data-rs-in>803 salvamentos</p>
+          </div>
+          <div class="rs-stat">
+            <p class="rs-big display"><span data-rs-count="101.5" data-dec="1">0</span>K</p>
+            <p class="rs-cap" data-rs-in>visualizações em outro</p>
+            <p class="rs-small" data-rs-in>+4,3 mil salvamentos</p>
+          </div>
+        </div>
+      </div>
+      <div class="rs-phones">
+        <div class="phone rs-phone p2" data-rs-phone><img loading="lazy" src="assets/img/globar-insights.webp" alt="Insights de um post do Globar: 157 mil visualizações"></div>
+        <div class="phone rs-phone" data-rs-phone><img loading="lazy" src="assets/img/globar-tiktok.webp" alt="Vídeo do Globar Restaurante com 101,5 mil visualizações"></div>
+      </div>
     </div>
   </div>
 </section>
@@ -223,12 +225,17 @@
   </div>
 </section>
 
-<section class="scene" id="mostarda-app" data-label="mostarda · aplicação" style="--len:300">
+<section class="scene" id="mostarda-app" data-label="mostarda · aplicações" style="--len:520">
   <div class="stage">
-    <div class="ma-photo" data-ma-photo><img loading="lazy" src="assets/img/mostarda-mockups.webp" alt="Aplicações da marca Mostarda: camisetas, caixas, sacolas, bonés e copos"></div>
-    <figure class="ma-pola p1" data-pola><img loading="lazy" src="assets/img/mostarda-calabresa.webp" alt="Pizza de calabresa"></figure>
-    <figure class="ma-pola p2" data-pola><img loading="lazy" src="assets/img/mostarda-cliente.webp" alt="Cliente comendo pizza"></figure>
-    <figure class="ma-pola p3" data-pola><img loading="lazy" src="assets/img/mostarda-tabua.webp" alt="Pizza na tábua"></figure>
+    <div class="mk-box" data-mk><img loading="lazy" src="assets/img/mostarda-mockups.webp" alt="Aplicações da marca Mostarda: bonés, camisetas, avental, caixas de pizza, sacola, copos, adesivos, sachês, Instagram e bag de entrega" data-mk-img></div>
+    <header class="mk-head" data-mk-head>
+      <span class="case-n">aplicações</span>
+      <h2 class="display">a marca <em>fora da tela.</em></h2>
+    </header>
+    <div class="mk-label" data-mk-label>
+      <span class="mk-n"><b data-mk-i>01</b>/06</span>
+      <span class="mk-name" data-roll="mk"><i class="roll-item">uniforme e avental</i><i class="roll-item">caixas de pizza</i><i class="roll-item">sacola</i><i class="roll-item">bonés</i><i class="roll-item">copos e adesivos</i><i class="roll-item">bag de entrega</i></span>
+    </div>
     <img class="ma-slogan" data-ma-slogan src="assets/brand/slogan-branco.webp" alt="pizza que chega com personalidade">
   </div>
 </section>
@@ -276,18 +283,19 @@
 <section class="closing" id="contato" data-label="contato">
   <svg class="cl-star s1" data-cl-star viewBox="-100 -100 200 200" aria-hidden="true"><polygon data-star/></svg>
   <svg class="cl-star s2" data-cl-star viewBox="-100 -100 200 200" aria-hidden="true"><polygon data-star/></svg>
+  <img class="cl-photo" data-cl-photo loading="lazy" src="assets/img/clara-recorte.webp" alt="Clara, fundadora da Brio Studio">
   <div class="cl-inner">
-    <p class="cl-prazer" data-cl-chars>prazer,</p>
-    <p class="cl-sou display" data-cl-chars>sou a Clara</p>
+    <p class="cl-prazer" data-cl-chars>oi,</p>
+    <p class="cl-sou display" data-cl-chars>eu sou a Clara</p>
     <svg class="cl-line" viewBox="0 0 560 28" preserveAspectRatio="none" aria-hidden="true"><path data-cl-line pathLength="1" d="M8 18 C 120 4, 260 26, 380 12 S 520 8, 552 16"/></svg>
     <div class="cl-roles"><span data-role>fotógrafa</span><span data-role>designer</span><span data-role>social media</span></div>
     <div class="cl-ctas">
-      <a class="cta" data-cta href="https://ig.me/m/creativebrio" target="_blank" rel="noopener" data-cursor-label="oi!">vem conhecer a BRIO
+      <a class="cta" data-cta href="https://ig.me/m/creativebrio" target="_blank" rel="noopener" data-cursor-label="oi!">bora conversar
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-      <a class="cta ghost" data-cta href="https://www.instagram.com/creativebrio/" target="_blank" rel="noopener">@creativebrio</a>
+      <a class="cta ghost" data-cta href="https://wa.me/5521999547760" target="_blank" rel="noopener">chamar no WhatsApp</a>
     </div>
   </div>
-  <footer>© 2026 Brio Studio · Rio de Janeiro · site por Bruno Codeco</footer>
+  <footer>© 2026 Brio Studio · Rio de Janeiro · @creativebrio · site por Bruno Codeco</footer>
 </section>
 
 </main>

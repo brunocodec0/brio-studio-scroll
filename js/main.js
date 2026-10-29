@@ -24,17 +24,11 @@
   }).join(' ');
   $$('[data-star]').forEach(p => p.setAttribute('points', starPts()));
   if ($('[data-band]')) {
-    const b1 = 'captação <span class="s">★</span> edição <span class="s">★</span> estratégia <span class="s">★</span> ';
+    const b1 = 'foto <span class="s">★</span> vídeo <span class="s">★</span> design <span class="s">★</span> estratégia <span class="s">★</span> sites <span class="s">★</span> ';
     const b2 = 'a força que impulsiona marcas a se destacarem <span class="s">★</span> ';
     $('[data-band="1"]').innerHTML = `<span>${b1.repeat(4)}</span>`;
     $('[data-band="-1"]').innerHTML = `<span>${b2.repeat(3)}</span>`;
   }
-  const N = 32, histo = $('[data-histo]');
-  const bell = (i, mu, sd, k = 1) => k * Math.exp(-((i - mu) ** 2) / (2 * sd * sd));
-  const hRaw = Array.from({ length: N }, (_, i) => Math.max(.04, bell(i, 13, 3.2)));
-  const hEd = Array.from({ length: N }, (_, i) => Math.max(.06, Math.min(1, bell(i, 9, 5, .75) + bell(i, 22, 5.5, .9) + .08)));
-  if (histo) histo.innerHTML = '<i></i>'.repeat(N);
-
   /* ---------- vídeos: só tocam quando aparecem ---------- */
   const vio = new IntersectionObserver(es => es.forEach(e => {
     const v = e.target;
@@ -64,7 +58,7 @@
   ScrollTrigger.config({ ignoreMobileResize: true });
 
   /* ---------- rolagem macia ---------- */
-  const lenis = new Lenis({ lerp: .11, smoothWheel: true });
+  const lenis = new Lenis({ lerp: .16, smoothWheel: true }); // .16 = macia, mas sem "arrastar" a rolagem
   lenis.on('scroll', ScrollTrigger.update);
   gsap.ticker.add(t => lenis.raf(t * 1000));
   gsap.ticker.lagSmoothing(0);
@@ -139,102 +133,83 @@
     const qx = gsap.quickTo(cur, 'x', { duration: .35, ease: 'power3' }), qy = gsap.quickTo(cur, 'y', { duration: .35, ease: 'power3' });
     addEventListener('pointermove', e => { px = e.clientX; py = e.clientY; qx(px); qy(py); cur.style.opacity = 1; }, { passive: true });
     document.addEventListener('pointerover', e => {
-      const t = e.target.closest('[data-cursor-label], a, .st-card, .ma-pola, .dp-card');
+      const t = e.target.closest('[data-cursor-label], a, .st-card, .dp-card, .ds-car, .plan, .browser');
       cur.classList.toggle('big', !!t);
       txt.textContent = t ? (t.dataset.cursorLabel || (t.tagName === 'A' ? '→' : 'olha')) : '';
     });
   }
 
   /* =========================================================
-     ABERTURA — cards voam, a foto abre de trás do logo e vira tela cheia
+     ABERTURA — fundo liso, estrela girando atrás do logo.
+     ao rolar, a estrela cresce, fica laranja e engole a tela (vira o manifesto)
      ========================================================= */
   if (has('opening')) {
     const { el, tl } = scene('opening', 1);
-    const hero = $('[data-hero]', el), heroImg = $('img', hero), cards = $$('[data-card]', el), logo = $('[data-op-logo]', el), logoImg = $('img', logo);
-    cards.forEach(c => {
-      const side = () => { const r = c.getBoundingClientRect(); return r.left + r.width / 2 < innerWidth / 2 ? -1 : 1; };
-      tl.to(c, { xPercent: () => side() * rnd(170, 260), yPercent: () => rnd(-110, -30), rotation: () => side() * rnd(12, 32), duration: .55, ease: 'power2.in' }, 0);
-    });
-    tl.fromTo(hero, { clipPath: 'inset(50% 50% 50% 50% round 28px)' }, { clipPath: 'inset(0% 0% 0% 0% round 0px)', duration: .7, ease: 'inout' }, .04)
-      .fromTo(heroImg, { scale: 1.12 }, { scale: 1, duration: .8 }, .04)
-      .fromTo(hero, { '--shade': .55 }, { '--shade': .9, duration: .5 }, .3)
-      .to($$('.op-head, .op-slogan, .op-hint', el), { autoAlpha: 0, y: -24, duration: .2 }, 0)
-      .to(logo, { scale: .6, duration: .6, ease: 'inout' }, .15)
-      .fromTo('[data-op-caption]', { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: .2, ease: 'out' }, .75);
-    const qs = cards.map(c => [gsap.quickTo(c, 'x', { duration: 1, ease: 'power3' }), gsap.quickTo(c, 'y', { duration: 1, ease: 'power3' }), +c.dataset.depth]);
-    el.addEventListener('pointermove', e => { const dx = e.clientX / innerWidth - .5, dy = e.clientY / innerHeight - .5; qs.forEach(([x, y, d]) => { x(dx * 40 * d); y(dy * 40 * d); }); });
-    // entrada (escala/opacidade — propriedades diferentes das do scroll)
-    gsap.set(cards, { scale: 0, autoAlpha: 0 }); gsap.set(logoImg, { scale: .3, autoAlpha: 0 });
+    const star = $('[data-op-star]', el), star2 = $('[data-op-star2]', el), logo = $('[data-op-logo]', el), logoImg = $('img', logo);
+    tl.to($$('.op-head, .op-slogan, .op-hint', el), { autoAlpha: 0, y: -24, duration: .2 }, 0)
+      .to(logo, { scale: .4, autoAlpha: 0, duration: .45, ease: 'power2.in' }, .1)
+      .to(star2, { scale: 2.2, autoAlpha: 0, duration: .5 }, 0)
+      .fromTo(star, { scale: 1 }, { scale: 4.2, duration: .9, ease: 'power2.in' }, .1)
+      .fromTo(star, { fill: '#2B1208' }, { fill: '#FF7817', duration: .5 }, .35);
+    // giro contínuo + segue o mouse de leve (num wrapper de propriedades diferentes do scroll)
+    gsap.to(star, { rotation: '+=360', duration: 60, repeat: -1, ease: 'none' });
+    gsap.to(star2, { rotation: '-=360', duration: 90, repeat: -1, ease: 'none' });
+    if (hover) {
+      const qx = gsap.quickTo(star, 'x', { duration: 1.2, ease: 'power3' }), qy = gsap.quickTo(star, 'y', { duration: 1.2, ease: 'power3' });
+      el.addEventListener('pointermove', e => { qx((e.clientX / innerWidth - .5) * 40); qy((e.clientY / innerHeight - .5) * 40); });
+    }
+    gsap.set(logoImg, { scale: .3, autoAlpha: 0 }); gsap.set(star, { transformOrigin: '50% 50%' });
     enter(el, t => t
-      .to(cards, { scale: 1, autoAlpha: 1, duration: .7, ease: 'pop', stagger: { each: .07, from: 'random' } }, .1)
-      .to(logoImg, { scale: 1, autoAlpha: 1, duration: .8, ease: 'pop' }, .25)
-      .to(logoImg, { keyframes: { rotation: [0, -6, 5, -3, 1, 0] }, duration: .7, ease: 'sine.inOut' }, .8)
-      .fromTo($$('[data-in]', el), { autoAlpha: 0, y: 16 }, { autoAlpha: 1, y: 0, duration: .6, stagger: .08, ease: 'out' }, .65));
+      .from(star, { scale: 0, duration: 1.1, ease: 'pop' }, 0)
+      .from(star2, { scale: 0, autoAlpha: 0, duration: 1.3, ease: 'out' }, .1)
+      .to(logoImg, { scale: 1, autoAlpha: 1, duration: .8, ease: 'pop' }, .3)
+      .to(logoImg, { keyframes: { rotation: [0, -6, 5, -3, 1, 0] }, duration: .7, ease: 'sine.inOut' }, .85)
+      .fromTo($$('[data-in]', el), { autoAlpha: 0, y: 16 }, { autoAlpha: 1, y: 0, duration: .6, stagger: .08, ease: 'out' }, .7));
   }
 
   /* ---------- MANIFESTO ---------- */
   if (has('manifesto')) {
-    const { el, tl } = scene('manifesto', 3);
-    const a = words($('[data-mf-a]', el)), b = words($('[data-mf-b]', el));
-    const file = $('[data-mf-file]', el), size = $('[data-mf-size]', el), mb = { v: 0 };
-    ft(tl, a, { opacity: .12 }, { opacity: 1, stagger: .12, duration: .1 }, .05);
-    ft(tl, b, { opacity: .12 }, { opacity: 1, stagger: .08, duration: .1 }, 1.05);
-    ft(tl, file, { autoAlpha: 0, scale: .4, rotation: -14 }, { autoAlpha: 1, scale: 1, rotation: 3, duration: .3, ease: 'pop' }, 1.3);
-    tl.to(mb, { v: 486, duration: 1, onUpdate: () => { size.textContent = Math.round(mb.v) + ' MB'; } }, 1.4)
-      .to(file, { rotation: -9, scaleY: .9, duration: .3, ease: 'sine.inOut' }, 2.3)
-      .to(file, { y: () => innerHeight * .9, rotation: 32, duration: .45, ease: 'power2.in' }, 2.6)
-      .fromTo('[data-mf-star]', { rotation: 0 }, { rotation: 140, duration: 3 }, 0);
+    const { el, tl } = scene('manifesto', 2);
+    ft(tl, words($('[data-mf-a]', el)), { opacity: .25 }, { opacity: 1, stagger: .12, duration: .1 }, .05);
+    ft(tl, words($('[data-mf-b]', el)), { opacity: .15, yPercent: 10 }, { opacity: 1, yPercent: 0, stagger: .1, duration: .12 }, .8);
+    tl.fromTo('[data-mf-star]', { rotation: 0 }, { rotation: 120, duration: 2 }, 0);
   }
 
-  /* ---------- EDIÇÃO AO VIVO ---------- */
-  if (has('edicao')) {
-    const { el, tl } = scene('edicao', 4);
-    const img = $('[data-ed-img]', el), bars = $$('i', histo);
-    const st = { exp: 0, con: 0, sat: 0, tmp: 0, rot: 0 };
-    const sliders = $$('[data-sl]', el).map(s => ({ k: s.dataset.sl, from: +s.dataset.from, to: +s.dataset.to, fix: +s.dataset.fix, unit: s.dataset.unit || '', b: $('b', s), knob: $('.knob', s), fill: $('.fill', s) }));
-    const apply = () => {
-      img.style.filter = `brightness(${lerp(.62, 1.03, st.exp)}) contrast(${lerp(.72, 1.08, st.con)}) saturate(${lerp(.3, 1.18, st.sat)}) sepia(${lerp(0, .1, st.tmp)}) hue-rotate(${lerp(-16, 0, st.tmp)}deg)`;
-      img.style.transform = `rotate(${lerp(-5, 0, st.rot)}deg) scale(${lerp(1.13, 1, st.rot)})`;
-      sliders.forEach(s => {
-        const p = st[s.k], pos = s.k === 'rot' ? lerp(.25, .5, p) : lerp(.18, .74, p);
-        s.b.textContent = lerp(s.from, s.to, p).toFixed(s.fix) + s.unit;
-        s.knob.style.left = pos * 100 + '%'; s.fill.style.transform = `scaleX(${pos})`;
-      });
-    };
-    apply();
-    ft(tl, words($('[data-ed-title]', el)), { yPercent: 80, autoAlpha: 0 }, { yPercent: 0, autoAlpha: 1, stagger: .06, duration: .25, ease: 'out' }, 0);
-    ft(tl, '[data-ed-panel]', { autoAlpha: 0, y: 30 }, { autoAlpha: 1, y: 0, duration: .25, ease: 'out' }, .1);
-    ft(tl, '[data-ed-photo]', { autoAlpha: 0, scale: .9 }, { autoAlpha: 1, scale: 1, duration: .3, ease: 'out' }, .05);
-    tl.to(st, { exp: 1, duration: .6, ease: 'inout' }, .4).to(st, { con: 1, duration: .6, ease: 'inout' }, 1.0)
-      .to(st, { sat: 1, duration: .6, ease: 'inout' }, 1.6).to(st, { tmp: 1, duration: .5, ease: 'inout' }, 2.2)
-      .to(st, { rot: 1, duration: .5, ease: 'inout' }, 2.7);
-    ft(tl, bars, { scaleY: i => hRaw[i] }, { scaleY: i => hEd[i], duration: 2.6, ease: 'inout' }, .4);
-    tl.to('[data-ed-grid]', { autoAlpha: 0, duration: .2 }, 3.2);
-    ft(tl, '[data-ed-stamp]', { autoAlpha: 0, scale: 2.6, rotation: -40 }, { autoAlpha: 1, scale: 1, rotation: 8, duration: .25, ease: 'pop' }, 3.25);
-    ft(tl, '[data-ed-q]', { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: .25, ease: 'out' }, 3.45);
-    const mode = roll($('[data-roll="mode"]', el));
-    watch(tl, t => { apply(); mode(t >= 3.2 ? 1 : 0); });
-  }
-
-  /* ---------- SERVIÇOS — trilho horizontal ---------- */
+  /* ---------- O QUE EU FAÇO — trilho horizontal com 4 cards ---------- */
   if (has('servicos')) {
-    const el = $('#servicos'), track = $('[data-track]', el);
+    const el = $('#servicos'), track = $('[data-track]', el), panels = $$('[data-panel]', el), cnt = $('[data-sv-i]', el);
     gsap.fromTo(words($('[data-sv-title]', el)), { yPercent: 100, autoAlpha: 0 }, { yPercent: 0, autoAlpha: 1, stagger: .08, duration: .8, ease: 'out', scrollTrigger: { trigger: el, start: 'top 65%', toggleActions: 'play none none reverse' } });
-    const h = gsap.to(track, { x: () => -(track.scrollWidth - innerWidth), ease: 'none', scrollTrigger: { trigger: el, start: 'top top', end: 'bottom bottom', scrub: SCRUB, invalidateOnRefresh: true } });
+    const h = gsap.to(track, { x: () => -(track.scrollWidth - innerWidth), ease: 'none', scrollTrigger: { trigger: el, start: 'top top', end: 'bottom bottom', scrub: SCRUB, invalidateOnRefresh: true,
+      onUpdate: s => { cnt.textContent = String(Math.min(panels.length, Math.round(s.progress * (panels.length - 1)) + 1)).padStart(2, '0'); } } });
     const ptl = (p, start, end) => gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: { trigger: p, containerAnimation: h, start, end, scrub: true } });
+    // 01 · foto e vídeo: a mira da câmera fecha no aftermovie
     const cap = $('[data-panel="cap"]', el);
     ptl(cap, 'left 100%', 'center 50%')
       .fromTo($$('[data-vfbr]', cap), { scale: 1.9, autoAlpha: .15 }, { scale: 1, autoAlpha: 1 }, 0)
       .fromTo($('.phone', cap), { rotation: -8, scale: .9 }, { rotation: 0, scale: 1 }, 0);
-    // antes (esquerda) → depois (direita): a foto editada entra pela direita e cobre tudo
-    ptl($('[data-panel="ed"]', el), 'left 85%', 'right 75%')
-      .fromTo('[data-ba-ed]', { clipPath: 'inset(0% 0% 0% 100%)' }, { clipPath: 'inset(0% 0% 0% 0%)' }, 0)
-      .fromTo('[data-ba-handle]', { left: '100%' }, { left: '0%' }, 0);
-    const est = $('[data-panel="est"]', el), feed = $('[data-feed]', est), fimg = $('img', feed), cnt = $('[data-count]', est), n = { v: 0 };
-    ptl(est, 'left 95%', 'right 100%')
-      .fromTo(fimg, { y: 0 }, { y: () => -(fimg.offsetHeight - feed.offsetHeight), ease: 'inout' }, 0)
-      .fromTo('[data-stat]', { autoAlpha: 0, x: 60, rotation: 10 }, { autoAlpha: 1, x: 0, rotation: -4, duration: .3, ease: 'pop' }, .2)
-      .to(n, { v: +cnt.dataset.count, duration: .5, onUpdate: () => { cnt.textContent = Math.round(n.v).toLocaleString('pt-BR'); } }, .25);
+    // 02 · design: os 3 carrosséis entram um atrás do outro enquanto o card largo atravessa a tela
+    const ds = $('[data-panel="ds"]', el);
+    $$('[data-ds-car]', ds).forEach(c => ptl(c, 'left 100%', 'left 55%')
+      .fromTo(c, { y: 70, rotation: 6, scale: .9 }, { y: 0, rotation: () => gsap.utils.random(-2, 2), scale: 1, ease: 'out' }, 0));
+    // 03 · roteiro e estratégia: o cronograma entra e o roteiro cai por cima
+    const est = $('[data-panel="est"]', el);
+    ptl(est, 'left 90%', 'center 50%')
+      .fromTo($('[data-plan]', est), { y: 80, rotation: 6, autoAlpha: 0 }, { y: 0, rotation: -3, autoAlpha: 1, ease: 'out' }, 0)
+      .fromTo($('[data-script]', est), { y: -120, rotation: -20, autoAlpha: 0 }, { y: 0, rotation: 5, autoAlpha: 1, ease: 'out' }, .35);
+    // 04 · sites: o navegador sobe e o adesivo "você está aqui" aparece
+    const site = $('[data-panel="site"]', el);
+    ptl(site, 'left 90%', 'center 45%')
+      .fromTo($('[data-browser]', site), { y: 90, rotation: 4 }, { y: 0, rotation: 0, ease: 'out' }, 0)
+      .fromTo($('[data-here]', site), { scale: 0, rotation: -30 }, { scale: 1, rotation: -4, ease: 'pop' }, .5);
+  }
+
+  /* ---------- RESULTADOS (Globar): dois números lado a lado ---------- */
+  if (has('resultado')) {
+    const { el, tl } = scene('resultado', 1);
+    ft(tl, $$('[data-rs-in]', el), { autoAlpha: 0, y: 20 }, { autoAlpha: 1, y: 0, stagger: .06, duration: .12, ease: 'out' }, .05);
+    ft(tl, $$('[data-rs-phone]', el), { y: () => innerHeight * .7, rotation: 10 }, { y: 0, rotation: i => (i ? 3 : -6), stagger: .12, duration: .3, ease: 'out' }, .05);
+    $$('[data-rs-count]', el).forEach((n, i) => { const o = { v: 0 }, d = +(n.dataset.dec || 0);
+      tl.to(o, { v: +n.dataset.rsCount, duration: .4, ease: 'out', onUpdate: () => { n.textContent = o.v.toLocaleString('pt-BR', { minimumFractionDigits: d, maximumFractionDigits: d }); } }, .1 + i * .15); });
   }
 
   /* ---------- SELETOR DE CASES + PRÓXIMO CASE ---------- */
@@ -313,7 +288,7 @@
     ft(tl, $$('[data-gf-in]', el), { autoAlpha: 0, y: 20 }, { autoAlpha: 1, y: 0, stagger: .05, duration: .1, ease: 'out' }, .08);
     ft(tl, '[data-gf-phone]', { y: () => innerHeight * .6, rotation: 8 }, { y: 0, rotation: -2, duration: .25, ease: 'out' }, .05);
     tl.fromTo(fimg, { y: 0 }, { y: () => -(fimg.offsetHeight - feed.offsetHeight), duration: .65, ease: 'inout' }, .3);
-    $$('[data-gf-count]', el).forEach(b => { const o = { v: 0 }; tl.to(o, { v: +b.dataset.gfCount, duration: .35, onUpdate: () => { b.textContent = Math.round(o.v).toLocaleString('pt-BR'); } }, .2); });
+    $$('[data-gf-count]', el).forEach(b => { const o = { v: 0 }, d = +(b.dataset.dec || 0); tl.to(o, { v: +b.dataset.gfCount, duration: .35, onUpdate: () => { b.textContent = o.v.toLocaleString('pt-BR', { minimumFractionDigits: d, maximumFractionDigits: d }); } }, .2); });
     ft(tl, $$('[data-gf-chip]', el), { autoAlpha: 0, scale: .5, rotation: () => rnd(-15, 15) }, { autoAlpha: 1, scale: 1, rotation: () => rnd(-3, 3), stagger: .05, duration: .12, ease: 'pop' }, .55);
   }
 
@@ -362,15 +337,26 @@
     });
   }
 
-  /* ---------- MOSTARDA · aplicação ---------- */
+  /* ---------- MOSTARDA · aplicações: a câmera passeia pelos mockups ---------- */
   if (has('mostarda-app')) {
-    const { el, tl } = scene('mostarda-app', 1);
-    const ph = $('[data-ma-photo]', el), polas = $$('[data-pola]', el);
-    ft(tl, ph, { clipPath: 'inset(32% 26% 32% 26% round 999px)' }, { clipPath: 'inset(0% 0% 0% 0% round 0px)', duration: .35, ease: 'inout' }, 0);
-    ft(tl, $('img', ph), { scale: 1.3 }, { scale: 1, duration: .5 }, 0);
-    tl.to($('img', ph), { filter: 'brightness(.42)', duration: .2 }, .42);
-    ft(tl, polas, { y: () => -innerHeight * 1.2, rotation: i => [-40, 25, 40][i] }, { y: 0, rotation: 0, stagger: .1, duration: .22, ease: 'out' }, .45);
-    ft(tl, '[data-ma-slogan]', { clipPath: 'inset(0% 100% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: .15, ease: 'out' }, .82);
+    const { el, tl } = scene('mostarda-app', 8);
+    const img = $('[data-mk-img]', el), label = roll($('[data-roll="mk"]', el)), cnt = $('[data-mk-i]', el);
+    // pontos de interesse na imagem (em %): uniforme, caixas, sacola, bonés, copos+adesivos, bag
+    const P = [[20, 47], [57, 47], [87, 47], [80, 13], [26, 82], [89, 82]], Z = 2.3;
+    const at = ([fx, fy], z) => ({ scale: z, xPercent: gsap.utils.clamp(-(z - 1) * 50, (z - 1) * 50, (50 - fx) * z), yPercent: gsap.utils.clamp(-(z - 1) * 50, (z - 1) * 50, (50 - fy) * z) });
+    gsap.set(img, { transformOrigin: '50% 50%' });
+    ft(tl, '[data-mk]', { clipPath: 'inset(30% 30% 30% 30% round 40px)' }, { clipPath: 'inset(0% 0% 0% 0% round 0px)', duration: .5, ease: 'inout' }, 0);
+    ft(tl, '[data-mk-head]', { autoAlpha: 0, y: 30 }, { autoAlpha: 1, y: 0, duration: .25, ease: 'out' }, .2);
+    tl.to('[data-mk-head]', { autoAlpha: 0, y: -20, duration: .2 }, .9);
+    ft(tl, '[data-mk-label]', { autoAlpha: 0, y: 30 }, { autoAlpha: 1, y: 0, duration: .2, ease: 'out' }, 1);
+    gsap.set(img, at([50, 50], 1));
+    P.forEach((p, i) => tl.to(img, { ...at(p, Z), duration: .6, ease: 'inout' }, 1 + i * 1));
+    tl.to(img, { ...at([50, 50], 1), duration: .6, ease: 'inout' }, 7)
+      .to(img, { filter: 'brightness(.45)', duration: .4 }, 7.3)
+      .to('[data-mk-label]', { autoAlpha: 0, duration: .2 }, 7);
+    ft(tl, '[data-ma-slogan]', { clipPath: 'inset(0% 100% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: .4, ease: 'out' }, 7.4);
+    let on = 0;
+    watch(tl, t => { const i = Math.max(0, Math.min(5, Math.floor(t - 1.3))); if (i !== on) { label(i); cnt.textContent = String(i + 1).padStart(2, '0'); on = i; } });
   }
 
   /* ---------- CASE DUDA BORGUE · abertura: a boca "beija" e a gente entra nela ---------- */
@@ -425,9 +411,14 @@
       .from(chars, { yPercent: 115, rotation: () => rnd(-20, 20), duration: .7, ease: 'pop', stagger: .03 })
       .to('[data-cl-line]', { strokeDashoffset: 0, duration: .7, ease: 'inout' }, '-=.35')
       .from('[data-role]', { autoAlpha: 0, y: 20, rotation: () => rnd(-10, 10), duration: .4, stagger: .08, ease: 'pop' }, '-=.4')
-      .from('[data-cta]', { autoAlpha: 0, scale: .6, duration: .5, stagger: .08, ease: 'pop' }, '-=.2');
+      .from('[data-cta]', { autoAlpha: 0, scale: .6, duration: .5, stagger: .08, ease: 'pop' }, '-=.2')
+      .from('[data-cl-photo]', { autoAlpha: 0, x: -120, rotation: -12, duration: .9, ease: 'out' }, 0);
     $$('[data-cl-star]', el).forEach((s, i) => gsap.to(s, { rotation: i ? -360 : 360, duration: 34 + i * 12, repeat: -1, ease: 'none' }));
   }
+
+  /* ---------- botão fixo: fica escuro em cima das cenas laranja ---------- */
+  const fab = $('[data-fab]');
+  if (fab) ['manifesto', 'contato'].forEach(id => has(id) && ScrollTrigger.create({ trigger: '#' + id, start: 'top 85%', end: 'bottom 85%', onToggle: s => fab.classList.toggle('dark', s.isActive) }));
 
   /* =========================================================
      NAVEGAÇÃO: cortina na cor da marca, depois troca de página

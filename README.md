@@ -2,10 +2,11 @@
 
 > Projeto de portfólio de **Bruno Codeco** · site para a **Brio Studio** (Clara Borgue), estúdio criativo do Rio de Janeiro.
 
-🔗 **Site no ar:** _(https://brio-studio-scroll.vercel.app/)_
+🔗 **Site no ar:** https://brio-studio-scroll.vercel.app/
 
-Um site em que **rolar a página conta a história da marca**: as fotos voam, a imagem abre de trás do logo,
-os controles de edição se mexem e editam a foto ao vivo, o mascote de um cliente troca de humor e sai pra entrega.
+Um site em que **rolar a página conta a história da marca**: a estrela cresce e engole a tela, os serviços passam num trilho
+(aftermovie, carrossel, cronograma), o resultado do Globar sobe num contador, a câmera passeia pelos mockups da Mostarda
+e o mascote troca de humor e sai pra entrega.
 Inspirado no nível de sites de evento/agência feitos com GSAP.
 
 ---
@@ -14,9 +15,9 @@ Inspirado no nível de sites de evento/agência feitos com GSAP.
 
 | Página | O que acontece |
 |---|---|
-| `index.html` | Apresentação da Brio: abertura, manifesto, **edição ao vivo**, serviços em trilho horizontal e o seletor **"escolhe um case"** |
+| `index.html` | Abertura (estrela + logo), manifesto, **o que eu faço** (4 cards), **resultado do Globar**, seletor **"escolha um case"**, contato com a Clara |
 | `cases/globar.html` | Restaurante: fotos que caem e empilham na mesa, reels em celulares, feed do Instagram rolando |
-| `cases/mostarda.html` | Identidade visual: o logo monta por linhas, o grãozinho passa por 5 humores e "sai pra entrega" |
+| `cases/mostarda.html` | Identidade visual: o logo monta por linhas, o grãozinho passa por 5 humores e "sai pra entrega", e um tour pelos mockups (aplicações) |
 | `cases/duda-borgue.html` | Moda: a boca do logo "beija" e a câmera entra nela, padrão, sacola e posts em leque |
 | `tudo-junto.html` | Versão alternativa com tudo numa página só |
 

@@ -20,11 +20,12 @@ HEAD = """<!doctype html>
 <meta name="theme-color" content="#140904">
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{desc}">
-<meta property="og:image" content="{R}assets/img/globar-picanha-logo.webp">
+<meta property="og:image" content="https://brio-studio-scroll.vercel.app/assets/brand/og-brio.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="{R}assets/brand/brio-logo-claro.webp">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@400;500;700&family=Bagel+Fat+One&family=Shantell+Sans:wght@500;700&display=swap" rel="stylesheet">
+<link rel="preload" href="{R}assets/fonts/bricolage-grotesque-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="{R}css/style.css">
 <script>
   // conteúdo animado começa escondido só com JS; se nada rodar em 4s, mostra tudo parado
@@ -55,10 +56,10 @@ NEXT = {
 
 PAGES = [
     # arquivo, página, título, blocos, próximo case
-    ('index.html', 'home', 'Brio Studio · captação, edição e estratégia',
-     ['opening', 'manifesto', 'edicao', 'servicos', 'cases', 'bands', 'contato'], None),
+    ('index.html', 'home', 'Brio Studio · foto, vídeo, design e estratégia | Rio de Janeiro',
+     ['opening', 'manifesto', 'servicos', 'resultado', 'cases', 'bands', 'contato'], None),
     ('tudo-junto.html', 'tudo', 'Brio Studio · versão com os cases na mesma página',
-     ['opening', 'manifesto', 'edicao', 'servicos', 'globar-open', 'globar', 'reels', 'mostarda', 'mostarda-app',
+     ['opening', 'manifesto', 'servicos', 'resultado', 'globar-open', 'globar', 'reels', 'mostarda', 'mostarda-app',
       'duda-open', 'duda-brand', 'duda-posts', 'bands', 'contato'], None),
     ('cases/globar.html', 'case', 'Globar Restaurante · case Brio Studio',
      ['globar-open', 'globar', 'reels', 'globar-feed', 'next'], 'mostarda'),
@@ -67,7 +68,7 @@ PAGES = [
     ('cases/duda-borgue.html', 'case', 'Duda Borgue · case Brio Studio',
      ['duda-open', 'duda-brand', 'duda-posts', 'next'], 'globar'),
 ]
-DESC = 'Brio é a força que impulsiona marcas a se destacarem. Fotografia, vídeo, design e social media no Rio de Janeiro.'
+DESC = 'Brio é a força que impulsiona marcas a se destacarem. Foto, vídeo, design, estratégia e sites no Rio de Janeiro.'
 
 def fill(text, vars):
     return re.sub(r'\{\{(\w+)\}\}', lambda m: vars.get(m.group(1), m.group(0)), text)
