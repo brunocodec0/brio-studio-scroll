@@ -2,7 +2,7 @@
 
 > Projeto de portfólio de **Bruno Codeco** · site para a **Brio Studio** (Clara Borgue), estúdio criativo do Rio de Janeiro.
 
-🔗 **Site no ar:** _(cole aqui o link da Vercel)_
+🔗 **Site no ar:** _(https://brio-studio-scroll.vercel.app/)_
 
 Um site em que **rolar a página conta a história da marca**: as fotos voam, a imagem abre de trás do logo,
 os controles de edição se mexem e editam a foto ao vivo, o mascote de um cliente troca de humor e sai pra entrega.
