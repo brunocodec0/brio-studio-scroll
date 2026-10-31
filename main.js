@@ -172,10 +172,14 @@
 
   /* ---------- MANIFESTO ---------- */
   if (has('manifesto')) {
-    const { el, tl } = scene('manifesto', 2);
-    ft(tl, words($('[data-mf-a]', el)), { opacity: .25 }, { opacity: 1, stagger: .12, duration: .1 }, .05);
-    ft(tl, words($('[data-mf-b]', el)), { opacity: .15, yPercent: 10 }, { opacity: 1, yPercent: 0, stagger: .1, duration: .12 }, .8);
-    tl.fromTo('[data-mf-star]', { rotation: 0 }, { rotation: 120, duration: 2 }, 0);
+    // v3.2: a seção passa direto (não trava o scroll). o texto acende sozinho ao entrar na tela.
+    const el = $('#manifesto');
+    const wa = words($('[data-mf-a]', el)), wb = words($('[data-mf-b]', el));
+    gsap.set(wa, { opacity: .25 }); gsap.set(wb, { opacity: .15, yPercent: 10 });
+    ScrollTrigger.create({ trigger: el, start: 'top 60%', once: true, onEnter: () => gsap.timeline()
+      .to(wa, { opacity: 1, stagger: .08, duration: .4, ease: 'out' })
+      .to(wb, { opacity: 1, yPercent: 0, stagger: .07, duration: .5, ease: 'out' }, '-=.15') });
+    gsap.to('[data-mf-star]', { rotation: '+=360', duration: 50, repeat: -1, ease: 'none' });
   }
 
   /* ---------- O QUE EU FAÇO — trilho horizontal com 4 cards ---------- */
