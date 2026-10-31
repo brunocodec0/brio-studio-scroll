@@ -470,3 +470,11 @@ em{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:-.0
   .cl-photo{position:relative;left:auto;top:auto;translate:none;height:auto;width:62vw;margin:0 auto -6px}
 }
 .still .mk-box img,.reduce .mk-box img{transform:none}
+
+/* =========================================================
+   v3.2 — iPhone: cada cena corta o que sai dela (não vaza em cima da próxima)
+   e as seções normais ficam por cima das cenas
+   ========================================================= */
+.scene{overflow:clip}
+.stage{contain:paint}
+.flow{position:relative;z-index:2}
